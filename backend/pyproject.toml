@@ -1,0 +1,9 @@
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+ignore = ["B008", "BLE001", "DTZ001", "DTZ005", "S110", "S101", "C405", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

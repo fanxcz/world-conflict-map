@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: wcm
+      POSTGRES_PASSWORD: wcm
+      POSTGRES_DB: wcm
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wcm"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg2://wcm:wcm@postgres:5432/wcm
+      JWT_SECRET: ${JWT_SECRET:-change-me-to-long-random-secret}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:3000}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@wcm.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Admin123!}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh -c "alembic upgrade head; python seed.py; uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  frontend:
+    build: ./web
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

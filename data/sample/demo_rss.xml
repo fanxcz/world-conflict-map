@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+<title>[DEMO SOURCE] WCM Sample Relief Feed (fictional)</title>
+<link>local:demo</link>
+<description>DEMO / SAMPLE DATA: fictional feed for pipeline testing. Not real events.</description>
+<item>
+<title>[DEMO] Aid convoy reaches Northland checkpoint</title>
+<description>DEMO fictional humanitarian convoy report for importer testing.</description>
+<link>https://example.com/demo/rss/1</link>
+<guid>demo-rss-1</guid>
+<pubDate>2026-09-28T10:00:00Z</pubDate>
+</item>
+<item>
+<title>[DEMO] Observers report calm in Southsea corridor</title>
+<description>DEMO fictional observer note for importer testing.</description>
+<link>https://example.com/demo/rss/2</link>
+<guid>demo-rss-2</guid>
+<pubDate>2026-09-29T12:00:00Z</pubDate>
+</item>
+<item>
+<title>[DEMO] Unlocated settlement mentioned without coordinates</title>
+<description>DEMO item with a place name but no coordinates; must become LOCATION_UNKNOWN.</description>
+<link>https://example.com/demo/rss/3</link>
+<guid>demo-rss-3</guid>
+<pubDate>2026-09-29T15:00:00Z</pubDate>
+</item>
+</channel>
+</rss>
