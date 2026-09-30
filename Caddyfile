@@ -1,0 +1,11 @@
+# Production: everything on one server, same origin (no CORS/VITE_API_URL needed).
+# Caddy terminates HTTPS with automatic Let's Encrypt for worldconf.ddns.net.
+# Requires ports 80+443 free on the host.
+worldconf.ddns.net {
+	handle /api/* {
+		reverse_proxy backend:8000
+	}
+	handle {
+		reverse_proxy frontend:80
+	}
+}
