@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <div className="app">
       <div className="topbar">
-        <h1>WORLD CONFLICT MAP</h1>
+        <div className="brand">WCM<small>SITREP // LIVE MAP</small></div>
         <SearchBar onFly={(lon, lat, zoom) => setFlyTo({ lon, lat, zoom, key: Date.now() })} />
         <button onClick={() => setShowFilters(!showFilters)}>Filters</button>
         <span style={{ fontSize: 12, color: '#9aa6b8' }} title={fresh.data?.note || ''}>
@@ -77,6 +77,15 @@ export default function Home() {
                   onChange={(e) => setVisibleLayers({ ...visibleLayers, [l]: e.target.checked })} />{l}
               </label>
             ))}
+          </div>
+          <div className="legend">
+            <strong>LEGEND</strong>
+            <div className="row"><span className="sw zone" /> conflict zone</div>
+            <div className="row"><span className="sw front" /> frontline / boundary</div>
+            <div className="row"><span className="sw move" /> movement</div>
+            <div className="row"><span className="sw inc-conf" /> incident · confirmed</div>
+            <div className="row"><span className="sw inc-rep" /> incident · reported</div>
+            <div className="row"><span className="sw inc-unv" /> incident · unverified</div>
           </div>
           {openConflict && (
             <ConflictCard id={openConflict} onClose={() => setOpenConflict(null)}

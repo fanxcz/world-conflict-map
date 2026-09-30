@@ -53,15 +53,15 @@ export function ConflictCard({ id, onClose, onFly }: { id: number; onClose: () =
   const d = c.data;
   return (
     <div className="detail">
+      <div className="sitrep-meta">SITREP // CONFLICT #{d.id}</div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <strong>{d.name}</strong>
         <button onClick={onClose}>✕</button>
       </div>
-      <div style={{ marginTop: 6, fontSize: 13 }}>
-        <div>Status: <span className={`badge ${d.status}`}>{d.status.toUpperCase()}</span></div>
-        <div>Region: {d.region}</div>
-        <div>Started: {d.start_date || '—'}</div>
-        <div>Updated: {new Date(d.last_updated).toLocaleString()}</div>
+      <div className="sitrep-meta" style={{ marginTop: 6 }}>
+        <div>STATUS <span className={`badge ${d.status}`}>{d.status.toUpperCase()}</span></div>
+        <div>REGION {d.region} · SINCE {d.start_date || '—'}</div>
+        <div>UPDATED {new Date(d.last_updated).toLocaleString()}</div>
         {d.is_sample && <div><span className="badge">DEMO / SAMPLE DATA</span></div>}
       </div>
       <p style={{ color: '#c6cfdb' }}>{d.description}</p>
