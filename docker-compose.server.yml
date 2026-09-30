@@ -1,0 +1,11 @@
+# Server variant for hosts where ports 80/443 are already taken by nginx
+# serving other sites (e.g. worldconf.ddns.net alongside other vhosts).
+# Usage: docker compose -f docker-compose.prod.yml -f docker-compose.server.yml up -d backend frontend
+# Then proxy worldconf.ddns.net -> 127.0.0.1:8080 and /api/ -> 127.0.0.1:8001 in nginx.
+services:
+  backend:
+    ports:
+      - "127.0.0.1:8001:8000"
+  frontend:
+    ports:
+      - "127.0.0.1:8080:80"
