@@ -28,7 +28,22 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: sh -c "alembic upgrade head; python seed.py; uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    command:
+      - sh
+      - -c
+      - |
+        python - <<'PY'
+        import os, time
+        from sqlalchemy import create_engine
+        for i in range(30):
+            try:
+                create_engine(os.environ["DATABASE_URL"]).connect().close()
+                break
+            except Exception:
+                print(f"waiting for db... ({i})", flush=True)
+                time.sleep(2)
+        PY
+        alembic upgrade head; python seed.py; uvicorn app.main:app --host 0.0.0.0 --port 8000
 
   frontend:
     build: ./web
